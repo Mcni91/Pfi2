@@ -10,10 +10,10 @@ public class Human {
 		return this.name;
 	}
 	public void buyDog(Dog dog){
-		
+		this.dog = dog;
 	}
 	/**Returnerar: "x äger en hund som heter y" eller " x äger inte en hund"*/
 	public String getInfo(){
-		return "TODO: Human.getInfo()";
+		return this.name + " äger en hund som heter " + dog.getName();
 	}
 }
