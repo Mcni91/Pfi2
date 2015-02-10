@@ -1,4 +1,3 @@
-import java.util.jar.Attributes.Name;
 
 public class Human {
 	private Dog dog;
@@ -15,6 +14,6 @@ public class Human {
 	}
 	/**Returnerar: "x äger en hund som heter y" eller " x äger inte en hund"*/
 	public String getInfo(){
-		
+		return "TODO: Human.getInfo()";
 	}
 }
