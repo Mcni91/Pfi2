@@ -39,6 +39,9 @@ public class GUI extends JFrame {
 		animals = new ArrayList<Animal>();
 		Animal lastAnimal;
 		
+		//Ser bra ut, dock hade du kunnat göra så du sätter friendlyName direkt i konstruktorn så du inte 
+		//behöver plocka fram djuret och ge den ett namn efteråt
+		
 		//Add dog
 		animals.add(new Dog("Canis latrans", 247, false));
 		//Give it a friendly name
