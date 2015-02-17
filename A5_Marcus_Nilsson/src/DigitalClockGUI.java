@@ -22,8 +22,13 @@ import javax.swing.JButton;
 public class DigitalClockGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private ClockLogic clockLogic;
 	private JPanel contentPane;
 	private JTextField textField;
+	private JLabel time;
+	private JLabel seconds;
+	private int[] day = {123, 206, 250};
+	private int[] night = {52, 73, 94};
 
 	/**
 	 * Launch the application.
@@ -45,6 +50,8 @@ public class DigitalClockGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public DigitalClockGUI() {
+		
+		clockLogic =  new ClockLogic(this);
 		
 		String className = getLookAndFeelClassName("Nimbus");
 		try {
@@ -71,13 +78,13 @@ public class DigitalClockGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel seconds = new JLabel("52");
+		seconds = new JLabel("52");
 		seconds.setHorizontalAlignment(SwingConstants.CENTER);
 		seconds.setFont(new Font("Myriad Pro Light", Font.PLAIN, 14));
 		seconds.setBounds(416, 138, 24, 14);
 		contentPane.add(seconds);
 		
-		JLabel time = new JLabel("13:37");
+		time = new JLabel("13:37");
 		time.setFont(new Font("Myriad Pro Light", Font.PLAIN, 60));
 		time.setHorizontalAlignment(SwingConstants.CENTER);
 		time.setBounds(10, 95, 729, 55);
@@ -126,6 +133,50 @@ public class DigitalClockGUI extends JFrame {
 	        }
 	    }
 	    return null;
+	}
+	public void setTime(int hour, int minute, int second){
+		time.setText(formatTime(hour, minute));
+		seconds.setText(formatSecods(second));
+		contentPane.setBackground(getBcgrColor(hour));
+	}
+	private Color getBcgrColor(int hour){
+		int lightlevel = hour;
+		if (hour > 12){
+			lightlevel = 24-hour;
+		}
+		int r = Math.round(map(lightlevel, 0, 12, night[0], day[0]));
+		int g = Math.round(map(lightlevel, 0, 12, night[1], day[1]));
+		int b = Math.round(map(lightlevel, 0, 12, night[2], day[2]));
+		return new Color(r, g, b);
+	}
+	private String formatTime(int hourIn, int minuteIn){
+		String hour = String.valueOf(hourIn);
+		String minute = String.valueOf(minuteIn);
+		if (hourIn < 10) {
+			hour = "0" + hourIn;
+		}
+		if (minuteIn < 10) {
+			minute = "0" + minuteIn;			
+		}
+		return hour + ":" + minute;
+	}
+	private String formatSecods(int secondIn){
+		String seconds = String.valueOf(secondIn);
+		if (secondIn < 10) {
+			seconds = "0" + secondIn;
+		}
+		return seconds;
+	}
+	/**Glorious map method from Processing!
+	 * istart/istop = value range
+	 * ostart/ostop = target range
+	 * */
+	static private final float map(float value, 
+			float istart, 
+			float istop, 
+			float ostart, 
+			float ostop) {
+		return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
 	}
 	
 }
