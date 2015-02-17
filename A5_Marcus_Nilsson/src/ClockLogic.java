@@ -1,6 +1,7 @@
 
 public class ClockLogic implements ClockInterface{
 	private DigitalClockGUI clockGUI;
+	private boolean alarmSet;
 	private int alarmHour;
 	private int alarmMinute;
 	
@@ -15,15 +16,25 @@ public class ClockLogic implements ClockInterface{
 	}
 	
 	public void setAlarm(int hours, int minutes){
-		this.alarmHour = hours;
-		this.alarmMinute = minutes;
+		if (hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60){
+			this.alarmHour = hours;
+			this.alarmMinute = minutes;
+			alarmSet = true;
+			clockGUI.alarmSet(alarmHour, alarmMinute);
+		}
 	}
 	public void clearAlarm(){
-		
+		alarmSet = false;
+		clockGUI.alarmClear();
 	}
 
 	@Override
 	public void update(int hourIn, int minuteIn, int secondIn) {
 		clockGUI.setTime(hourIn, minuteIn, secondIn);
+		if (alarmSet) {
+			if (alarmHour == hourIn && alarmMinute == minuteIn) {
+				clearAlarm();
+			}
+		}
 	}
 }

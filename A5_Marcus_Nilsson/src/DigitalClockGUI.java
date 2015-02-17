@@ -17,6 +17,8 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class DigitalClockGUI extends JFrame {
@@ -27,6 +29,10 @@ public class DigitalClockGUI extends JFrame {
 	private JTextField textField;
 	private JLabel time;
 	private JLabel seconds;
+	private JLabel alarm;
+	private JPanel panel;
+	private JButton btnSetAlarm;
+	private JButton btnClearAlarm;
 	private int[] day = {123, 206, 250};
 	private int[] night = {52, 73, 94};
 
@@ -50,6 +56,9 @@ public class DigitalClockGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public DigitalClockGUI() {
+		setTitle("Neat clock");
+		ImageIcon windowIcon = new ImageIcon(DigitalClockGUI.class.getResource("/resources/icon.png"));
+		setIconImage(windowIcon.getImage());
 		
 		clockLogic =  new ClockLogic(this);
 		
@@ -90,27 +99,50 @@ public class DigitalClockGUI extends JFrame {
 		time.setBounds(10, 95, 729, 55);
 		contentPane.add(time);
 		
-		JLabel alarm = new JLabel("Alarm: 14:30");
+		alarm = new JLabel("");
 		alarm.setFont(new Font("Myriad Pro Light", Font.PLAIN, 11));
 		alarm.setHorizontalAlignment(SwingConstants.CENTER);
 		alarm.setBounds(0, 150, 749, 14);
 		contentPane.add(alarm);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBounds(10, 484, 729, 40);
 		panel.setOpaque(false);
 		contentPane.add(panel);
 		
 		textField = new JTextField();
-		textField.setToolTipText("HH:MM, or HHMM");
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setToolTipText("hh:mm or hhmm");
 		panel.add(textField);
 		textField.setColumns(7);
 		
-		JButton btnSetAlarm = new JButton("Set Alarm");
+		btnSetAlarm = new JButton("Set Alarm");
+		btnSetAlarm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String text = textField.getText();
+				if (text.contains(":")) {
+				    String[] temp = text.split(":");
+				    clockLogic.setAlarm(
+				    		Integer.parseInt(temp[0]), 
+				    		Integer.parseInt(temp[1])
+				    	);
+				} else if (text.length() == 4){
+					clockLogic.setAlarm(
+							Integer.parseInt(text.substring(0,2)),
+							Integer.parseInt(text.substring(2,4))
+						);
+					
+				}
+			}
+		});
 		panel.add(btnSetAlarm);
 		
-		JButton btnClearAlarm = new JButton("Clear Alarm");
-		panel.add(btnClearAlarm);
+		btnClearAlarm = new JButton("Clear Alarm");
+		btnClearAlarm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clockLogic.clearAlarm();
+			}
+		});
 		
 		JLabel backgroundImage = new JLabel("");
 		backgroundImage.setIcon(new ImageIcon(DigitalClockGUI.class.getResource("/resources/mountains.png")));
@@ -134,6 +166,19 @@ public class DigitalClockGUI extends JFrame {
 	    }
 	    return null;
 	}
+	public void alarmSet(int hour, int minute){
+		alarm.setText("Alarm: " + formatTime(hour, minute));
+		panel.remove(btnSetAlarm);
+		panel.add(btnClearAlarm);
+		updateGUI();
+	}
+	public void alarmClear(){
+		alarm.setText("");
+		panel.remove(btnClearAlarm);
+		panel.add(btnSetAlarm);
+		updateGUI();
+	}
+	
 	public void setTime(int hour, int minute, int second){
 		time.setText(formatTime(hour, minute));
 		seconds.setText(formatSecods(second));
@@ -167,6 +212,11 @@ public class DigitalClockGUI extends JFrame {
 		}
 		return seconds;
 	}
+	private void updateGUI(){
+		contentPane.validate();
+		contentPane.repaint();
+	}
+	
 	/**Glorious map method from Processing!
 	 * istart/istop = value range
 	 * ostart/ostop = target range
