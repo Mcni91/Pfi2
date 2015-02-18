@@ -17,8 +17,13 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class DigitalClockGUI extends JFrame {
@@ -111,8 +116,37 @@ public class DigitalClockGUI extends JFrame {
 		contentPane.add(panel);
 		
 		textField = new JTextField();
+		textField.setText("hh:mm");
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setToolTipText("hh:mm or hhmm");
+		
+		textField.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				String text = textField.getText();
+				int len = text.length();
+
+				if (c == ':' && !text.contains(":")){
+					// do nothing
+				} else if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+					e.consume();  // ignore event
+				} else {
+					if (text.equals("hh:mm")) {
+						textField.setText("");
+					} else if ((len >= 4 && !text.contains(":")) || (len >= 5 && text.contains(":"))){
+						e.consume();  // ignore event
+					}
+				}
+
+			}
+		});
+		textField.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+            	if (textField.getText().equals("hh:mm")) textField.setText("");
+            }
+        });
+		
 		panel.add(textField);
 		textField.setColumns(7);
 		
@@ -228,5 +262,4 @@ public class DigitalClockGUI extends JFrame {
 			float ostop) {
 		return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
 	}
-	
 }
