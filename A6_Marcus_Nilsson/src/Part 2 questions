@@ -1,0 +1,30 @@
+1. Mellan vilka stationer sker sökningen
+
+	Från Malmö C till Lund C
+
+
+2. Hur ser en QueryString ut om man bara vill ha 5 resultatet för sökningen (Titta i xsd filen för sökningen)?
+
+	Lägg till "&NoOf=5"
+	e.g: http://www.labs.skanetrafiken.se/v2.2/resultspage.asp?cmdaction=next&selPointFr=0|80000|0&selPointTo=0|81216|0&NoOf=5
+
+
+3. Vilka delar av resan beskriver dessa taggar: <Journeys></Journeys>, <Journey></Jouney>,<RouteLinks></RouteLinks>,
+>,<RouteLink></RouteLink>? Placera dem även korrekt hierarkiskt.
+
+	<Journeys></Journeys> innehåller de resor skånetrafiken har tagit fram utifrån frågan.
+	<Journey></Jouney> Är en av resorna nämnda ovan som ligger i Journeys.
+	<RouteLinks></RouteLinks> ligger i Jouney och innehåller vilka turer man ska ta. I sökningen är det bara en färd för att komma till destinationen men om man istället hade åkt från tex ubåtshallen så hade det legat två <RouteLink> taggar i RouteLinks. En för Stadsbuss 5 och en för tåget.
+
+
+
+4. Vilken XML-tagg innehåller antal byte för en resa och under vilken huvudtagg är den taggen placerad?
+
+	<NoOfChanges></NoOfChanges>, placerad i GetJourneyResponse/GetJourneyResult/Journeys/Journey
+
+	
+5. Ge exempel på en XML tagg som inte finns implementerad i det API du laddade ner.
+
+	<HeaterSetting></HeaterSetting>
+
+	Onödig att ha med i APIt efter som den alltid är inställd på MAX.
