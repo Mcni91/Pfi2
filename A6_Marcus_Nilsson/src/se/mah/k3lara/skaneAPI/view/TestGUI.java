@@ -165,13 +165,14 @@ public class TestGUI extends JFrame {
 		textArea_1.append("Antal zoner: " + journey.getNoOfZones() + "\n");
 		
 		textArea_1.append("Avgår från: " + journey.getStartStation());
-		textArea_1.append(" efter " + journey.getTimeToDeparture() + " signalfel\n");
+		textArea_1.append(" efter " + journey.getTimeToDeparture() + " signalfel\n"); //Jag vet att det inte är signalfel, men nu ska vi försöka vara lite realistiska här.
 		textArea_1.append("Klockan: " + depTime.HOUR_OF_DAY + ":" + depTime.MINUTE);
 		textArea_1.append(" eventuell försening: " + journey.getDepTimeDeviation() + "\n");
 		textArea_1.append("Restid: " + journey.getTravelMinutes() + "min\n");
 		
-		textArea_1.append("Ankommer: " + arrTime.HOUR_OF_DAY + ":" + arrTime.MINUTE);
+		textArea_1.append("Beräknad ankomst: " + arrTime.HOUR_OF_DAY + ":" + arrTime.MINUTE);
 		textArea_1.append(" till: " + journey.getEndStation() + "\n");
+		textArea_1.append("Eventuell försening: " + journey.getArrTimeDeviation());
 	}
 
 }
