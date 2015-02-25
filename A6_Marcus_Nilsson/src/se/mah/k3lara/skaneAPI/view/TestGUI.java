@@ -144,7 +144,7 @@ public class TestGUI extends JFrame {
 		
 	}
 	public void updateTextArea(List<Station> list){
-		stations = list; 
+		stations = list;
 		stations.addAll( Parser.getStationsFromURL( textField.getText() ));
 		textArea.setText("");
 		for (Station station : stations) {
