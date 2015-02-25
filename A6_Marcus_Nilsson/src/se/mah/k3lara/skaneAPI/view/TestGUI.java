@@ -166,10 +166,16 @@ public class TestGUI extends JFrame {
 		
 		textArea_1.append("Avgår från: " + journey.getStartStation());
 		textArea_1.append(" efter " + journey.getTimeToDeparture() + " signalfel\n"); //Jag vet att det inte är signalfel, men nu ska vi försöka vara lite realistiska här.
+		
+		//Här blir det fel. När jag testar så visas samma ankomsttid hela tiden för både avgång och ankomst (11:12)
+		//Skriv på nåt av dessa sätten så funkar det
+		//	depTime.get(Calendar.HOUR_OF_DAY)
+		//  journey.getDepDateTime().get(Calendar.HOUR_OF_DAY) - (behöver inte skapa extra depTime och arrTime variabler om man gör på detta sättet)
 		textArea_1.append("Klockan: " + depTime.HOUR_OF_DAY + ":" + depTime.MINUTE);
 		textArea_1.append(" eventuell försening: " + journey.getDepTimeDeviation() + "\n");
 		textArea_1.append("Restid: " + journey.getTravelMinutes() + "min\n");
 		
+		//Samma på denna raden och testa så allt funkar
 		textArea_1.append("Beräknad ankomst: " + arrTime.HOUR_OF_DAY + ":" + arrTime.MINUTE);
 		textArea_1.append(" till: " + journey.getEndStation() + "\n");
 		textArea_1.append("Eventuell försening: " + journey.getArrTimeDeviation());
