@@ -1,5 +1,10 @@
 # Pfi2
 
+A6
+
+En grej du missat, kolla kommentarer i TestGUI, annars ser det bra ut!
+
+
 A5
 
 Bra! Du har gjort koden lite annorlunda men det funkar och ser bra ut. :)
