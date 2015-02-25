@@ -4,6 +4,7 @@ A6
 
 En grej du missat, kolla kommentarer i TestGUI, annars ser det bra ut!
 
+----
 
 A5
 
