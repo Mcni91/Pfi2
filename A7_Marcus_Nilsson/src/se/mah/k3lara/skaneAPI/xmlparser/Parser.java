@@ -149,6 +149,18 @@ public class Parser {
 		String lineNo;
 		Calendar depTime;
 		String depTimeDeviation;
+		
+		String name;
+		String timingPoint;
+		String stopPoint;
+		String lineTypeId;
+		String lineTypeName;
+		String towards;
+		String trainNo;
+		String deviations;
+		String runNo;
+		String depDeviationAffect;
+		
 		Lines lines = new Lines(station);
 		String xml = parser.getXmlFromUrl(searchURL); // getting XML
 		if (xml!=null){
@@ -171,11 +183,44 @@ public class Parser {
 				//Continue with all other elements in the Line node.......
 				//....
 				
+				name = parser.getValue(e, "Name"); 
+				if(debug){System.out.println("Name: "+ name);}
+				timingPoint = parser.getValue(e, "TimingPoint"); 
+				if(debug){System.out.println("TimingPoint: "+ timingPoint);}
+				stopPoint = parser.getValue(e, "StopPoint"); 
+				if(debug){System.out.println("StopPoint: "+ stopPoint);}
+				lineTypeId = parser.getValue(e, "LineTypeId"); 
+				if(debug){System.out.println("LineTypeId: "+ lineTypeId);}
+				lineTypeName = parser.getValue(e, "LineTypeName"); 
+				if(debug){System.out.println("LineTypeName: "+ lineTypeName);}
+				towards = parser.getValue(e, "Towards"); 
+				if(debug){System.out.println("Towards: "+ towards);}
+				trainNo = parser.getValue(e, "TrainNo"); 
+				if(debug){System.out.println("TrainNo: "+ trainNo);}
+				deviations = parser.getValue(e, "Deviations"); 
+				if(debug){System.out.println("Deviations: "+ deviations);}
+				runNo = parser.getValue(e, "RunNo"); 
+				if(debug){System.out.println("RunNo: "+ runNo);}
+				depDeviationAffect = parser.getValue(e, "DepDeviationAffect"); 
+				if(debug){System.out.println("DepDeviationAffect: "+ depDeviationAffect);}
+				
+				
+				
 				//Then we got one Line lets create a line object and add it to Lines
 				Line l = new Line();
 				l.setDepTime(depTime);
 				l.setLine(lineNo);
 				l.setDepTimeDeviation(depTimeDeviation);
+				l.setName(name);
+				l.setTimingPoint(timingPoint);
+				l.setStopPoint(stopPoint);
+				l.setLineTypeId(lineTypeId);
+				l.setLineTypeName(lineTypeName);
+				l.setTowards(towards);
+				l.setTrainNo(trainNo);
+				l.setDeviations(deviations);
+				l.setRunNo(runNo);
+				l.setDepDeviationAffect(depDeviationAffect);
 				lines.addLine(l);
 				//Ok next Line element
 			}		
