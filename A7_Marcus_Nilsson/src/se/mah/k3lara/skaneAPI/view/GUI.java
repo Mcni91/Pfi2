@@ -1,7 +1,10 @@
 package se.mah.k3lara.skaneAPI.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -44,7 +47,7 @@ public class GUI extends JFrame {
 	public GUI() {
 		setTitle("Ub\u00E5tshallen");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 472, 346);
+		setBounds(100, 100, 310, 230);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -79,7 +82,7 @@ public class GUI extends JFrame {
 		
 		for (Line l : lines) {
 			
-			Object row[] = {l.getLine(), l.getTowards(), l.getFormatedDeparture(30)};
+			Object row[] = {l.getLine(), l.getTowards().toUpperCase(), l.getFormatedDeparture(30)};
 			rowData[index] = row;
 			index++;
 		}
@@ -99,8 +102,13 @@ public class GUI extends JFrame {
 						return columnEditables[column];
 					}
 				});
-		table.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table.getColumnModel().getColumn(0).setMaxWidth(50);
+		table.setShowGrid(false);
+		table.setIntercellSpacing(new Dimension(0, 0));
+		table.setForeground(Color.ORANGE);
+		table.setBackground(Color.BLACK);
+		table.setFont(new Font("Courier New", Font.BOLD, 11));
+		table.getColumnModel().getColumn(0).setPreferredWidth(30);
+		table.getColumnModel().getColumn(0).setMaxWidth(30);
 		table.getColumnModel().getColumn(2).setPreferredWidth(50);
 		table.getColumnModel().getColumn(2).setMaxWidth(50);
 		table.setFillsViewportHeight(true);
