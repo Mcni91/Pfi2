@@ -1,5 +1,11 @@
 # Pfi2
 
+A7
+
+Ser bra ut änsålänge men du måste fixa designen som det står i pdf'en.
+
+----
+
 A6
 
 En grej du missat, kolla kommentarer i TestGUI, annars ser det bra ut!
